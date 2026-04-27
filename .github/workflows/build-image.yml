@@ -21,13 +21,13 @@ jobs:
       image: ghcr.io/jae1911/linht-hw:jae-feat-cicd-image-build
 
     steps:
-      - name: 'Restore caches'
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        with:
-          key: ${{ github.ref_name }}
-          path: |
-            sstate-cache
-            tmp
+#      - name: 'Restore caches'
+#        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+#        with:
+#          key: ${{ github.ref_name }}
+#          path: |
+#            sstate-cache
+#            tmp
 
       - name: 'Initialize NPX and Compulab'
         run: |
