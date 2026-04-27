@@ -44,7 +44,6 @@ jobs:
 
           source compulab-setup-env build-mcm-imx93
 
-
       - name: 'Checkout LintHT SDR'
         uses: actions/Checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -65,6 +64,11 @@ jobs:
 
       - name: 'Add Bitbake layers'
         run: |
+          ls
+          pwd
+
+          cat compulab-setup-env
+
           source compulab-setup-env build-mcm-imx93
 
           bitbake-layers add-layer meta-linht-sdr
