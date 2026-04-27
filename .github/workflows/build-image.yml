@@ -47,8 +47,6 @@ jobs:
 
           repo sync
 
-          source compulab-setup-env build-mcm-imx93
-
       - name: 'Checkout LintHT SDR'
         uses: actions/Checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -82,10 +80,11 @@ jobs:
           pip install websockets
 
           cat >> build-mcm-imx93/conf/local.conf <<'EOF'
-          BB_HASHSERVE_UPSTREAM = "wss://hashserv.yoctoproject.org/ws"
-          SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+          BB_HASHSERVE_UPSTREAM = 'wss://hashserv.yoctoproject.org/ws'
+          SSTATE_MIRRORS ?= "file://.* http://cdn.jsdelivr.net/yocto/sstate/all/PATH;downloadfilename=PATH"
           BB_HASHSERVE = "auto"
           BB_SIGNATURE_HANDLER = "OEEquivHash"
+          BB_NO_NETWORK = "0"
 
           # Remove distribution features
           DISTRO_FEATURES:remove = "bluetooth wifi"
