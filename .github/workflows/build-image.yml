@@ -33,6 +33,11 @@ jobs:
           sudo mv repo /usr/local/bin/
           sudo chmod 755 /usr/local/bin/repo
 
+      - name: 'Install dependencies'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chrpath sharutils diffstat
+
       - name: 'Initialize NPX and Compulab'
         run: |
           repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap -m imx-6.6.52-2.2.0.xml
