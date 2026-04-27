@@ -63,6 +63,8 @@ jobs:
         run: |
           source compulab-setup-env build-mcm-imx93
 
+          cd ../sources
+
           bitbake-layers add-layer meta-linht-sdr
           bitbake-layers add-layer meta-linht-hardware
           bitbake-layers add-layer meta-linht-software
