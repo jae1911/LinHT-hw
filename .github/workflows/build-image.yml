@@ -61,11 +61,11 @@ jobs:
 
       - name: 'Add Bitbake layers'
         run: |
-          source compulab-setup-env build-mcm-imx93
-
           pwd
 
           ls
+
+          source compulab-setup-env build-mcm-imx93
 
           cd ../sources
 
