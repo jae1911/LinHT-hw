@@ -18,14 +18,14 @@ jobs:
       contents: read
 
     steps:
-#      - name: 'Restore caches'
-#        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-#        with:
-#          key: ${{ github.ref_name }}
-#          path: |
-#            sstate-cache
-#            tmp
-#            .ccache
+      - name: 'Restore caches'
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          key: ${{ github.ref_name }}
+          path: |
+            sstate-cache
+            tmp
+            .ccache
 
       - name: 'Get repository tool'
         run: |
@@ -48,28 +48,25 @@ jobs:
         uses: actions/Checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: 'M17-Project/meta-linht-sdr'
-          path: '${{ github.workspace }}/sources/'
+          path: '${{ github.workspace }}/sources/meta-linht-sdr'
 
       - name: 'Checkout LintHT SDR'
         uses: actions/Checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: 'M17-Project/meta-linht-hardware'
-          path: '${{ github.workspace }}/sources/'
+          path: '${{ github.workspace }}/sources/meta-linht-hardware'
 
       - name: 'Checkout LintHT SDR'
         uses: actions/Checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: 'M17-Project/meta-linht-software'
-          path: '${{ github.workspace }}/sources/'
+          path: '${{ github.workspace }}/sources/meta-linht-software'
 
       - name: 'Add Bitbake layers'
         run: |
-          ls
-          pwd
-
-          ls ..
-
           source compulab-setup-env build-mcm-imx93
+
+          cd ../sources
 
           bitbake-layers add-layer meta-linht-sdr
           bitbake-layers add-layer meta-linht-hardware
@@ -116,18 +113,18 @@ jobs:
           source compulab-setup-env build-mcm-imx93
           bitbake -k linht-image
 
-#      - name: 'Save caches'
-#        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-#        with:
-#          key: ${{ github.ref_name }}
-#          path: |
-#            sstate-cache
-#            tmp
-#            .ccache
+      - name: 'Save caches'
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          key: ${{ github.ref_name }}
+          path: |
+            sstate-cache
+            tmp
+            .ccache
 
-#      - name: 'Upload artifacts'
-#        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-#        with:
-#          path: |
-#            '**/*.bin-flash_singleboot'
-#            '**/*..wic.zst'
+      - name: 'Upload artifacts'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: |
+            '**/*.bin-flash_singleboot'
+            '**/*..wic.zst'
