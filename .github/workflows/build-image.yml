@@ -99,7 +99,6 @@ jobs:
           BB_FETCH_PREMIRRORONLY = "0"
           BB_NUMBER_THREADS = "2"
 
-          PRSERV_HOST = "auto"
           SSTATE_MAX_AGE = "0"
           PARALLEL_MAKE = "-j2"
 
