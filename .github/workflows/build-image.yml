@@ -38,6 +38,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y chrpath sharutils diffstat
 
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo docker image prune --all --force
+          df -h
+
       - name: 'Initialize NPX and Compulab'
         run: |
           repo init -u https://github.com/nxp-imx/imx-manifest.git -b imx-linux-scarthgap -m imx-6.6.52-2.2.0.xml
@@ -81,10 +88,23 @@ jobs:
 
           cat >> build-mcm-imx93/conf/local.conf <<'EOF'
           BB_HASHSERVE_UPSTREAM = 'wss://hashserv.yoctoproject.org/ws'
-          SSTATE_MIRRORS ?= "file://.* http://cdn.jsdelivr.net/yocto/sstate/all/PATH;downloadfilename=PATH"
+          SSTATE_MIRRORS ?= "\
+            file://.* http://cdn.jsdelivr.net/yocto/sstate/all/PATH;downloadfilename=PATH \
+            file://.* https://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH \
+          "
+
           BB_HASHSERVE = "auto"
           BB_SIGNATURE_HANDLER = "OEEquivHash"
           BB_NO_NETWORK = "0"
+          BB_FETCH_PREMIRRORONLY = "0"
+          BB_NUMBER_THREADS = "2"
+
+          PRSERV_HOST = "auto"
+          SSTATE_MAX_AGE = "0"
+          PARALLEL_MAKE = "-j2"
+
+          GLIBC_GENERATE_LOCALES = "en_US.UTF-8"
+          IMAGE_LINGUAS = "en-us"
 
           # Remove distribution features
           DISTRO_FEATURES:remove = "bluetooth wifi"
