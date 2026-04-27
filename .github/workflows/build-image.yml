@@ -29,7 +29,8 @@ jobs:
 
       - name: 'Get repository tool'
         run: |
-          sudo curl https://commondatastorage.googleapis.com/git-repo-downloads/repo -O /usr/local/bin/repo
+          wget https://commondatastorage.googleapis.com/git-repo-downloads/repo
+          sudo mv repo /usr/local/bin/
           sudo chmod 755 /usr/local/bin/repo
 
       - name: 'Initialize NPX and Compulab'
