@@ -3,9 +3,6 @@ name: 'Create Docker build environment'
 on:
   workflow_dispatch:
   workflow_call:
-  push:
-    branches:
-      - jae/feat/cicd-image-build
 
 jobs:
   build-yocto-image:
